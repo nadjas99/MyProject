@@ -1,11 +1,10 @@
 //import { default as fetch } from "node-fetch";
-// import axios from "axios";
-
+import axios from "axios";
 import "reflect-metadata";
 import { AppDataSource } from "./data-source";
 import { Country } from "./entity/Country";
 import { average } from "./entity/rates-average";
-const axios = require("axios");
+
 var countryData: Country[] = [];
 AppDataSource.initialize();
 var ratesDates = [];
@@ -28,6 +27,7 @@ export async function getCountries() {
       countryNew.callingCode = country.idd;
       countryNew.population = country.population;
       countryNew.currency = country.currencies;
+      console.log(countryNew.currency.USD);
       countryData.push(countryNew);
       // await AppDataSource.manager.save(countryNew);
     }
@@ -64,6 +64,11 @@ export async function getRates() {
   avg.CNY = avg.CNY / 30;
   console.log(avg);
 }
-
-//getCountries();
+let report: string = "";
+getCountries();
 getRates();
+getCountriesAvg();
+
+export function getCountriesAvg() {
+  countryData.forEach((element) => {});
+}
