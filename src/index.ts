@@ -31,9 +31,14 @@ export async function getCountries() {
 }
 
 export async function getRates() {
-  const { data } = await axios.get("https://api.apilayer.com/fixer/latest?", {
-    headers: { apikey: "cqMNFLecUQ51HaY5hNzJqhhoAWE2WC6E" },
-  });
+  const { data } = await axios.get(
+    "https://api.apilayer.com/fixer/timeseries?start_date=2022-05-08&end_date=2022-06-08&symbols=BRL%2C%20USD%2C%20GBP%2C%20AUD%2C%20CNY",
+    {
+      headers: { apikey: "cqMNFLecUQ51HaY5hNzJqhhoAWE2WC6E" },
+    }
+  );
+  const { rates } = data;
+  console.log(rates);
 }
 
 getCountries();
