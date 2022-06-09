@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: .
+      target: development
+    container_name: sentigrate-project
+    image: sentigrate-project:latest    
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - sp-network
+    ports:
+      - 3000:3000
+      - 9229:9229
+    command: npm start:watch
+    depends_on:
+      - db
+      
+  db:
+    image: postgres:11.9
+    container_name: sp-db
+    ports:
+      - 5432:5432
+    networks:
+      - sp-network
+    environment:
+      POSTGRES_USER: nadja
+      POSTGRES_PASSWORD: nadja
+      POSTGRES_DB: sentigrate
+    volumes:
+      - pg:/var/lib/postgresql/data
+
+volumes:
+  pg:
+    driver: local
+
+networks:
+  sp-network:
+    driver: bridge
